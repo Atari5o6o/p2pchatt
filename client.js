@@ -18,41 +18,40 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question('Enter your name: ', (name) => {
-  console.log(`Welcome, ${name}! You can start chatting.`);
+function askForMessage(user) {
+  return new Promise((resolve) => {
+    rl.question(`Enter ${user}'s message: `, (message) => {
+      resolve({ user, message });
+    });
+  });
+}
 
-  // Create a writable stream for the Hypercore feed
-  const feed = core.createWriteStream();
+async function startChat() {
+  while (true) {
+    const senderMessage = await askForMessage('sender');
+    const receiverMessage = await askForMessage('receiver');
 
-  // Create a readable stream for the Hypercore feed
-  const readStream = core.createReadStream({ live: true });
-
-  // Create a writable stream for saving messages to a file
-  const fileStream = fs.createWriteStream('chat-data.txt', { flags: 'a' });
-
-  rl.on('line', (message) => {
-    // Send the message to the DHT using Hypercore
-    const messageObj = { user: name, message };
-    const messageString = JSON.stringify(messageObj);
-
-    // Append the message to the Hypercore feed
-    feed.write(messageString + '\n', 'utf-8', () => {
-      console.log(`You: ${message}`);
+    // Send the sender's message to the DHT using Hypercore
+    const senderMessageString = JSON.stringify(senderMessage);
+    core.append(senderMessageString + '\n', 'utf-8', () => {
+      console.log(`${senderMessage.user}: ${senderMessage.message}`);
     });
 
-    // Append the message to the file
-    fileStream.write(`${name}: ${message}\n`);
-  });
+    // Save the sender's message to the file
+    fs.appendFileSync('chat-data.txt', `${senderMessage.user}: ${senderMessage.message}\n`);
 
-  // Incoming messages
-  readStream.on('data', (data) => {
-    const { user, message } = JSON.parse(data.toString());
-    console.log(`${user}: ${message}\n`);
+    // Send the receiver's message to the DHT using Hypercore
+    const receiverMessageString = JSON.stringify(receiverMessage);
+    core.append(receiverMessageString + '\n', 'utf-8', () => {
+      console.log(`${receiverMessage.user}: ${receiverMessage.message}`);
+    });
 
-    // Append the received message to the file
-    fileStream.write(`${user}: ${message}\n`);
-  });
-});
+    // Save the receiver's message to the file
+    fs.appendFileSync('chat-data.txt', `${receiverMessage.user}: ${receiverMessage.message}\n`);
+  }
+}
+
+startChat();
 
 // Pipe stdin, DHT connection, and stdout
 process.stdin.pipe(conn).pipe(process.stdout);
