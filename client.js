@@ -38,7 +38,7 @@ const rl = readline.createInterface({
 //incoming messages
 core.createReadStream({ live: true }).on('data', (data) => {
     const { user, message } = JSON.parse(data.toString());
-    console.log(`${user}: ${message}`);
+    console.log(`${user}: ${message}\n`);
   });
 
 process.stdin.pipe(conn).pipe(process.stdout)
