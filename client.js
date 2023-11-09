@@ -20,11 +20,16 @@ const rl = readline.createInterface({
   rl.question('Enter your name: ', (name) => {
     console.log(`Welcome, ${name}! You can start chatting.`);
   
+    // Create a writable stream for the Hypercore feed
+    const feed = core.createWriteStream();
+  
     rl.on('line', (message) => {
       // Send the message to the DHT using Hypercore
       const messageObj = { user: name, message };
       const messageString = JSON.stringify(messageObj);
-      core.append(messageString, () => {
+  
+      // Append the message to the Hypercore feed
+      feed.write(messageString + '\n', 'utf-8', () => {
         console.log(`You: ${message}`);
       });
     });
