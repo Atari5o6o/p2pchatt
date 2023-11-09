@@ -30,18 +30,27 @@ rl.question('Enter your name: ', (name) => {
   // Create a writable stream for saving messages to a file
   const fileStream = fs.createWriteStream('chat-data.txt', { flags: 'a' });
 
-  rl.on('line', (message) => {
+  const sendMessage = (user, message) => {
     // Send the message to the DHT using Hypercore
-    const messageObj = { user: name, message };
+    const messageObj = { user, message };
     const messageString = JSON.stringify(messageObj);
 
     // Append the message to the Hypercore feed
     feed.write(messageString + '\n', 'utf-8', () => {
-      console.log(`You: ${message}`);
+      console.log(`${user}: ${message}`);
     });
 
     // Append the message to the file
-    fileStream.write(`${name}: ${message}\n`);
+    fileStream.write(`${user}: ${message}\n`);
+  };
+
+  rl.on('line', async (message) => {
+    // Sender's message
+    sendMessage(name, message);
+
+    // Receiver's message
+    const receiverMessage = await askForMessage('receiver');
+    sendMessage(receiverMessage.user, receiverMessage.message);
   });
 
   // Incoming messages
@@ -56,3 +65,11 @@ rl.question('Enter your name: ', (name) => {
 
 // Pipe stdin, DHT connection, and stdout
 process.stdin.pipe(conn).pipe(process.stdout);
+
+function askForMessage(user) {
+  return new Promise((resolve) => {
+    rl.question(`Enter ${user}'s message: `, (message) => {
+      resolve({ user, message });
+    });
+  });
+}
