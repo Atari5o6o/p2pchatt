@@ -15,7 +15,7 @@ conn.once('open', () => console.log('got connection!'))
 //incoming messages
 core.createReadStream({ live: true }).on('data', (data) => {
     const { user, message } = JSON.parse(data.toString());
-    console.log(`${user}: ${message}`);
+    // console.log(`${user}: ${message}`);
   });
 
 process.stdin.pipe(conn).pipe(process.stdout)
