@@ -1,0 +1,19 @@
+# holepunch - keep connected
+#
+# The Holepunch Service provides nat traversal via upnp / pmp and ddns
+
+description	"Holepunch Service"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+respawn limit 10 5
+umask 022
+
+# 'sshd -D' leaks stderr and confuses things in conjunction with 'console log'
+console none
+
+# if you used to set SSHD_OPTS in /etc/default/ssh, you can change the
+# 'exec' line here instead
+exec /usr/local/bin/node /srv/holepunch/bin/service.js
