@@ -39,3 +39,69 @@ Anmol: No not yet
 Anmol: Obviously not
 Anmol: Charizard
 Anmol: Charizard
+Anmol: hi
+Anmol: helo
+Anmol: how are you 
+Anmol2: hello
+Sankalp: HI
+Sankalp: hello
+Anmol: Helo
+Anmol: Hey sankalp
+Anmol: hello 
+anmol: HEY sankalp how are you
+anmol: I am fine, doing well
+Anmol: Hello sankalp, does this fix the bug
+Anmol: Hey sankalp
+Anmol: hey
+Hello: hi
+Anmol: Hi sankalp
+Anmol: No not yet
+Anmol: Obviously not
+Anmol: Charizard
+Anmol: hi
+Anmol: helo
+Anmol: how are you 
+Anmol2: hello
+Sankalp: HI
+Sankalp: hello
+Anmol: Helo
+Anmol: Hey sankalp
+Anmol: hello 
+anmol: HEY sankalp how are you
+anmol: I am fine, doing well
+Anmol: Hello sankalp, does this fix the bug
+Anmol: Hey sankalp
+Anmol: hey
+Hello: hi
+Anmol: Hi sankalp
+Anmol: No not yet
+Anmol: Obviously not
+Anmol: Charizard
+Anmol: hello
+Anmol: hello
+receiver: aeivnwrsvbadvwrvasdvrwvasvdrwevw
+receiver: aeivnwrsvbadvwrvasdvrwvasvdrwevw
+Anmol: anmol
+Anmol: anmol
+Anmol: hi
+Anmol: helo
+Anmol: how are you 
+Anmol2: hello
+Sankalp: HI
+Sankalp: hello
+Anmol: Helo
+Anmol: Hey sankalp
+Anmol: hello 
+anmol: HEY sankalp how are you
+anmol: I am fine, doing well
+Anmol: Hello sankalp, does this fix the bug
+Anmol: Hey sankalp
+Anmol: hey
+Hello: hi
+Anmol: Hi sankalp
+Anmol: No not yet
+Anmol: Obviously not
+Anmol: Charizard
+Anmol: hello
+receiver: aeivnwrsvbadvwrvasdvrwvasvdrwevw
+Anmol: anmol
